@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avalon Game Lobby</title>
+</head>
+<body>
+    <h1>Avalon Game Lobby</h1>
+    
+    <h2>Players:</h2>
+    <ul>
+        {% for player in players %}
+            <li>{{ player }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Game Rooms:</h2>
+    <ul>
+        {% for room, players in game_rooms.items() %}
+            <li>{{ room }} ({{ players|length }}/{{ max_players_per_room }} players) <a href="{{ url_for('join_room', room_name=room) }}">Join</a></li>
+        {% endfor %}
+    </ul>
+
+    <h2>Create a New Room:</h2>
+    <form action="/create_room" method="post">
+        <label for="room_name">Room Name:</label>
+        <input type="text" id="room_name" name="room_name" required>
+        <button type="submit">Create Room</button>
+    </form>
+</body>
+</html>
